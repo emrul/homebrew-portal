@@ -1,0 +1,30 @@
+# Homebrew cask — Portal Desktop (the macOS menu-bar app, notarized).
+#
+# This is the GUI product (correct TCC identity, onboarding, settings). The bare
+# CLI ships separately as the `portal-desktop` cask + `emrul/portal-dev` formula
+# for headless/remote use. Built by `cargo tauri build` (signed + notarized), the
+# .dmg hosted as a GitHub Release on emrul/portal-desktop.
+#
+# Install: brew install --cask emrul/portal/portal
+cask "portal" do
+  version "0.1.0"
+  sha256 "ed3e74548caa63e6fe3a8bee12387c2d4f4d544d408784821bc866af7317bdc4"
+
+  url "https://github.com/emrul/portal-desktop/releases/download/app-v#{version}/Portal-Desktop-#{version}-arm64.dmg"
+  name "Portal Desktop"
+  desc "Stream a desktop you own to a browser — capture, H.264, WebTransport/WebRTC"
+  homepage "https://github.com/emrul/portal-desktop"
+
+  depends_on formula: "ffmpeg"
+  depends_on arch:    :arm64
+  depends_on macos:   :sonoma
+
+  app "Portal Desktop.app"
+
+  caveats <<~EOS
+    Portal Desktop lives in the menu bar. On first launch it guides you through
+    Screen Recording (and, for keyboard/mouse control, Accessibility) in System
+    Settings. Use the menu-bar icon to open the viewer, copy the link, or change
+    settings. ffmpeg is installed as a dependency.
+  EOS
+end
