@@ -8,7 +8,7 @@
 # Install: brew install --cask emrul/portal/portal
 cask "portal" do
   version "0.1.0"
-  sha256 "ed3e74548caa63e6fe3a8bee12387c2d4f4d544d408784821bc866af7317bdc4"
+  sha256 "09a8f598c126e34b6a4da13ef0c6e18796644e7b1a089cab62f366df04e42330"
 
   url "https://github.com/emrul/portal-desktop/releases/download/app-v#{version}/Portal-Desktop-#{version}-arm64.dmg"
   name "Portal Desktop"
