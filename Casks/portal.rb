@@ -9,15 +9,15 @@
 cask "portal" do
   # Auto-bumped to 0.1.<git-commit-count> by publish-app-cask.sh so `brew upgrade`
   # picks up every republish (the app's internal version stays 0.1.0).
-  version "0.1.106"
-  sha256 "4834fbfda4037f8f0cc753a95106193c45286ab700a0a5055d35116f677a2892"
+  version "0.1.116"
+  sha256 "2f81aaafd97cdd652ac1d88bf109a18fc72ffd13b9e0a8366516e250902a87f1"
 
   url "https://github.com/emrul/portal-desktop/releases/download/app-v#{version}/Portal-Desktop-#{version}-arm64.dmg"
   name "Portal Desktop"
   desc "Stream a desktop you own to a browser — capture, H.264, WebTransport/WebRTC"
   homepage "https://github.com/emrul/portal-desktop"
 
-  depends_on formula: "ffmpeg"
+  # No ffmpeg: the macOS app encodes via direct VideoToolbox and links no ffmpeg.
   depends_on arch:    :arm64
   depends_on macos:   :sonoma
 
@@ -27,6 +27,6 @@ cask "portal" do
     Portal Desktop lives in the menu bar. On first launch it guides you through
     Screen Recording (and, for keyboard/mouse control, Accessibility) in System
     Settings. Use the menu-bar icon to open the viewer, copy the link, or change
-    settings. ffmpeg is installed as a dependency.
+    settings.
   EOS
 end
