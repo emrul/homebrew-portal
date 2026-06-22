@@ -22,10 +22,31 @@ cask "portal-desktop" do
 
   app "Portal Desktop.app"
 
+  # Strip the quarantine xattr Homebrew stamps on cask apps. The app is notarized +
+  # Developer-ID signed, so this only removes the one-time "downloaded from the
+  # Internet — are you sure?" CONSENT dialog (Gatekeeper's signature/notarization
+  # checks still run). That dialog is a single click for a desktop user, but it
+  # BLOCKS a host launched over SSH / unattended — the process waits forever on a
+  # click that never comes. Essential for headless/remote hosts. (must_succeed:
+  # false so a --no-quarantine install, where the attr is already absent, is fine.)
+  postflight do
+    system_command "/usr/bin/xattr",
+                   args:         ["-d", "-r", "com.apple.quarantine", "#{appdir}/Portal Desktop.app"],
+                   must_succeed: false
+  end
+
   caveats <<~EOS
     Portal Desktop lives in the menu bar. On first launch it guides you through
     Screen Recording (and, for keyboard/mouse control, Accessibility) in System
     Settings. Use the menu-bar icon to start/stop serving, open the viewer, copy the
     link, or change settings.
+
+    Headless / remote host: Portal Desktop is a GUI menu-bar app, not a daemon — it
+    needs an active login (Aqua) session to capture the screen, so a truly unattended
+    Mac needs Auto-Login enabled (System Settings > Users & Groups) plus the app's
+    "Start at login" toggle. Screen Recording (and Accessibility for input control)
+    must be granted once interactively in System Settings — they can't be enabled
+    headlessly without an MDM PPPC profile. After that the stable Developer-ID
+    identity keeps the grants across upgrades.
   EOS
 end
