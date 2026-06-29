@@ -8,8 +8,8 @@
 cask "portal-desktop" do
   # Auto-bumped to 0.1.<git-commit-count> by publish-app-cask.sh so `brew upgrade`
   # picks up every republish (the app's internal version stays 0.1.0).
-  version "0.1.287"
-  sha256 "fbe3942eb202495cd62cde89b0b1ac9e9ee31ea2c06d7ec1ee3a7625175db2ea"
+  version "0.1.324"
+  sha256 "7761a3542cb9917cd56d4015a568e5248078f82b949ab4da155aa64953b0d3e2"
 
   url "https://github.com/emrul/portal-desktop/releases/download/app-v#{version}/Portal-Desktop-#{version}-arm64.dmg"
   name "Portal Desktop"
